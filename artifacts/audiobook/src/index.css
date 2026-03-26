@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Lora', serif;
+  --font-reading: 'Merriweather', serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  
+  --color-highlight: hsl(var(--highlight));
+  --color-highlight-foreground: hsl(var(--highlight-foreground));
+
+  --radius-xl: 1rem;
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+}
+
+@layer base {
+  :root {
+    /* Default: Warm Literary Premium Dark Mode */
+    --background: 30 15% 5%;       /* Very dark warm brown/black */
+    --foreground: 40 20% 90%;      /* Off-white */
+    
+    --card: 30 15% 8%;             /* Slightly lighter than background */
+    --card-foreground: 40 20% 90%;
+    
+    --popover: 30 15% 8%;
+    --popover-foreground: 40 20% 90%;
+    
+    --primary: 38 92% 50%;         /* Warm Amber/Gold */
+    --primary-foreground: 30 15% 5%;
+    
+    --secondary: 30 10% 15%;
+    --secondary-foreground: 40 20% 90%;
+    
+    --muted: 30 10% 15%;
+    --muted-foreground: 30 10% 60%;
+    
+    --accent: 38 92% 50%;
+    --accent-foreground: 30 15% 5%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 30 10% 15%;
+    --input: 30 10% 15%;
+    --ring: 38 92% 50%;
+
+    --highlight: 38 92% 50% / 0.15;
+    --highlight-foreground: 38 92% 65%;
+  }
+
+  .theme-light {
+    --background: 40 33% 98%;      /* Cream/Parchment */
+    --foreground: 30 20% 20%;      /* Dark brown/charcoal */
+    
+    --card: 40 25% 95%;
+    --card-foreground: 30 20% 20%;
+    
+    --popover: 40 25% 95%;
+    --popover-foreground: 30 20% 20%;
+    
+    --primary: 25 80% 45%;         /* Deep Orange/Rust */
+    --primary-foreground: 40 33% 98%;
+    
+    --secondary: 40 15% 90%;
+    --secondary-foreground: 30 20% 20%;
+    
+    --muted: 40 15% 90%;
+    --muted-foreground: 30 15% 50%;
+    
+    --accent: 25 80% 45%;
+    --accent-foreground: 40 33% 98%;
+    
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 25 80% 45%;
+
+    --highlight: 25 80% 45% / 0.15;
+    --highlight-foreground: 25 90% 35%;
+  }
+
+  .theme-sepia {
+    --background: 35 40% 90%;      /* Warm Sepia */
+    --foreground: 25 40% 25%;      /* Dark warm brown */
+    
+    --card: 35 35% 85%;
+    --card-foreground: 25 40% 25%;
+    
+    --popover: 35 35% 85%;
+    --popover-foreground: 25 40% 25%;
+    
+    --primary: 20 60% 40%;         /* Terracotta */
+    --primary-foreground: 35 40% 90%;
+    
+    --secondary: 35 30% 80%;
+    --secondary-foreground: 25 40% 25%;
+    
+    --muted: 35 30% 80%;
+    --muted-foreground: 25 30% 45%;
+    
+    --accent: 20 60% 40%;
+    --accent-foreground: 35 40% 90%;
+    
+    --border: 35 25% 75%;
+    --input: 35 25% 75%;
+    --ring: 20 60% 40%;
+
+    --highlight: 20 60% 40% / 0.15;
+    --highlight-foreground: 20 70% 30%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30 selection:text-primary transition-colors duration-500;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Custom scrollbar for an elegant look */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}

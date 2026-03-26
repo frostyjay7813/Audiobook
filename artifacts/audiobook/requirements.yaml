@@ -1,0 +1,23 @@
+packages:
+  "zustand": "Global state management for player context"
+  "framer-motion": "Smooth animations for UI transitions"
+  "clsx": "Utility for constructing className strings"
+  "tailwind-merge": "Utility to merge tailwind classes safely"
+  "usehooks-ts": "Collection of useful react hooks like useDebounce"
+  "@radix-ui/react-slider": "For accessible playback speed and volume sliders"
+  "@radix-ui/react-select": "For accessible voice selection dropdown"
+  "@radix-ui/react-dialog": "For settings and bookmarks modals"
+  "@radix-ui/react-popover": "For quick settings popovers"
+  "@radix-ui/react-switch": "For boolean settings like auto-scroll"
+  "@radix-ui/react-tabs": "For organizing settings/bookmarks"
+  "@radix-ui/react-scroll-area": "For custom styled scrollbars in text area"
+  "lucide-react": "Beautiful consistent icons"
+
+images:
+  - path: "artifacts/audiobook/public/images/cover.png"
+    description: "An elegant, minimalist book cover for 'Build Your First Gadget'. Warm amber and deep charcoal colors, subtle geometric electronic circuit patterns, sophisticated serif typography vibe."
+    aspect_ratio: "3:4"
+
+notes:
+  - Expects backend endpoints defined in openapi.yaml for /api/progress, /api/bookmarks, /api/settings
+  - Uses Web Speech API for TTS. Best results on browsers with high-quality native voices (Edge/Chrome/Safari).

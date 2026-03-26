@@ -1,15 +1,16 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Audiobook API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: progress
+    description: Reading progress and bookmarks
 paths:
   /healthz:
     get:
@@ -24,6 +25,113 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /progress:
+    get:
+      operationId: getProgress
+      tags: [progress]
+      summary: Get user reading progress
+      responses:
+        "200":
+          description: Current progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProgress"
+    post:
+      operationId: saveProgress
+      tags: [progress]
+      summary: Save user reading progress
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveProgressRequest"
+      responses:
+        "200":
+          description: Progress saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProgress"
+  /bookmarks:
+    get:
+      operationId: getBookmarks
+      tags: [progress]
+      summary: Get all bookmarks
+      responses:
+        "200":
+          description: List of bookmarks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Bookmark"
+    post:
+      operationId: addBookmark
+      tags: [progress]
+      summary: Add a bookmark
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddBookmarkRequest"
+      responses:
+        "201":
+          description: Bookmark added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookmark"
+  /bookmarks/{id}:
+    delete:
+      operationId: deleteBookmark
+      tags: [progress]
+      summary: Delete a bookmark
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Bookmark deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [progress]
+      summary: Get user settings
+      responses:
+        "200":
+          description: Current settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSettings"
+    post:
+      operationId: saveSettings
+      tags: [progress]
+      summary: Save user settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSettings"
+      responses:
+        "200":
+          description: Settings saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSettings"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +141,108 @@ components:
           type: string
       required:
         - status
-
+    UserProgress:
+      type: object
+      properties:
+        chapterIndex:
+          type: integer
+        paragraphIndex:
+          type: integer
+        completedChapters:
+          type: array
+          items:
+            type: integer
+        lastUpdated:
+          type: string
+      required:
+        - chapterIndex
+        - paragraphIndex
+        - completedChapters
+        - lastUpdated
+    SaveProgressRequest:
+      type: object
+      properties:
+        chapterIndex:
+          type: integer
+        paragraphIndex:
+          type: integer
+        completedChapters:
+          type: array
+          items:
+            type: integer
+      required:
+        - chapterIndex
+        - paragraphIndex
+        - completedChapters
+    Bookmark:
+      type: object
+      properties:
+        id:
+          type: integer
+        chapterIndex:
+          type: integer
+        paragraphIndex:
+          type: integer
+        chapterTitle:
+          type: string
+        excerpt:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - chapterIndex
+        - paragraphIndex
+        - chapterTitle
+        - excerpt
+        - createdAt
+    AddBookmarkRequest:
+      type: object
+      properties:
+        chapterIndex:
+          type: integer
+        paragraphIndex:
+          type: integer
+        chapterTitle:
+          type: string
+        excerpt:
+          type: string
+      required:
+        - chapterIndex
+        - paragraphIndex
+        - chapterTitle
+        - excerpt
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required:
+        - success
+    UserSettings:
+      type: object
+      properties:
+        playbackRate:
+          type: number
+        voiceURI:
+          type: string
+        theme:
+          type: string
+        fontSize:
+          type: string
+        autoScroll:
+          type: boolean
+        highlightWords:
+          type: boolean
+        pitch:
+          type: number
+        volume:
+          type: number
+      required:
+        - playbackRate
+        - theme
+        - fontSize
+        - autoScroll
+        - highlightWords
+        - pitch
+        - volume
